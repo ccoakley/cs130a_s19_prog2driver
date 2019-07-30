@@ -13,7 +13,7 @@ student_files=$(ls | grep -v LOGFILE)
 cd ${current_dir}
 
 # make sure test dir exists (create if it doesn't)
-if [ ! -d ${test_dir}]; then
+if [ ! -d ${test_dir} ]; then
   mkdir -p ${test_dir}
 fi
 
@@ -68,7 +68,7 @@ for student_file in ${student_files}; do
       echo "no prog2 found, trying to be smarter" >> ${prog2_grades}
       if [[ $(ls -F | grep '*' | cut -d'*' -f1 | wc -w) -eq 1 ]]; then
         echo "found a single executable" >> ${prog2_grades}
-        prog=ls -F | grep '*' | cut -d'*' -f1
+        prog=$(ls -F | grep '*' | cut -d'*' -f1)
       else
         echo "unknown main executable" >> ${prog2_grades}
       fi
@@ -86,9 +86,8 @@ for student_file in ${student_files}; do
           echo "${index}: no" >> ${prog2_grades}
         fi
       done
-      else
-        echo "continuing to next student; no main executable" >> ${prog2_grades}
-      fi
+    else
+      echo "continuing to next student; no main executable" >> ${prog2_grades}
     fi
     echo '' >> ${prog2_grades}
     cd ${current_dir}
